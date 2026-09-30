@@ -12,6 +12,7 @@
 6. Planes de la votación (Medellín B002, Cali B003, Barranquilla B004) y la mejor
    candidata de cada una de esas ciudades, ubicados respecto al frente.
 7. Sensibilidad: rutas imputadas usadas y bodegas excluidas por datos faltantes.
+8. Escenarios: cada configuración del frente evaluada en los 12 meses del pronóstico.
 
 Uso:  python src/pareto.py   (requiere haber corrido src/limpieza.py)
 """
@@ -300,6 +301,33 @@ def sensibilidad_excluidas(frente):
     return pd.DataFrame(filas)
 
 
+def escenarios_mensuales(frente):
+    """Evalúa cada configuración del frente y la de mínimo costo libre en los 12 meses del
+    pronóstico limpio (misma red y costos; cambian demanda y oferta portuaria)."""
+    import limpieza as L
+    from modelo import Tablas
+    C = RAIZ / "data" / "clean"
+    leer = lambda n: pd.read_csv(C / f"{n}.csv")
+    zonas, pron, bod = leer("zonas"), leer("pronostico_demanda"), leer("bodegas")
+    of, ctrl = leer("oferta_puertos"), leer("controles_mensuales")
+    rpb, rbz = leer("rutas_puerto_bodega"), leer("rutas_bodega_zona")
+    confs = [set(c) for c in configuraciones(frente)]
+    filas = []
+    for mes in ctrl["mes"]:
+        t = Tablas(*L.construir_modelo_mes(mes, zonas, pron, bod, of, ctrl, rpb, rbz))
+        libre = resolver(t)
+        fila = {"mes": mes, "demanda": int(t.demanda["demanda"].sum()),
+                "min_costo_libre": " + ".join(libre.abiertas),
+                "min_costo_libre_mcop": libre.costo / 1e6, "min_costo_libre_T": libre.tiempo}
+        for c in confs:
+            s = resolver(t, bodegas_fijas=c)
+            nombre = " + ".join(sorted(c))
+            fila[f"{nombre} | mcop"] = s.costo / 1e6 if s.estado == "Optimal" else None
+            fila[f"{nombre} | T"] = s.tiempo if s.estado == "Optimal" else None
+        filas.append(fila)
+    return pd.DataFrame(filas)
+
+
 def main():
     SALIDA.mkdir(parents=True, exist_ok=True)
     tablas = cargar_tablas()
@@ -385,6 +413,11 @@ def main():
     excl.to_csv(SALIDA / "sensibilidad_bodegas_excluidas.csv", index=False)
     print("\nBodegas excluidas con supuestos optimistas:")
     print(excl.to_string(index=False))
+    esc = escenarios_mensuales(frente)
+    esc.to_csv(SALIDA / "escenarios_mensuales.csv", index=False, float_format="%.3f")
+    print("\nConfiguraciones del frente en los 12 meses del pronóstico (costo M COP; vacío = infactible):")
+    print(esc[["mes", "demanda", "min_costo_libre"] + [c for c in esc.columns if c.endswith("mcop")]]
+          .to_string(index=False, float_format=lambda v: f"{v:,.1f}"))
     print(f"\nResultados en {SALIDA.relative_to(RAIZ)}/")
 
 

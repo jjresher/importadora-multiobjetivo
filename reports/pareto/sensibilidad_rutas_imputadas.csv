@@ -1,0 +1,7 @@
+ruta,campo,factor,punto,config_punto,config_nueva,delta_costo_mcop,min_costo_config,min_costo_T
+P02|B013,costo_abastecimiento_cop_pedido,0.85,P2,B012 + B013,B012 + B013,-7.58,B012 + B013,1.091
+P02|B013,costo_abastecimiento_cop_pedido,0.85,P3,B012 + B013,B012 + B013,-7.16,B012 + B013,1.091
+P02|B013,costo_abastecimiento_cop_pedido,0.85,P4,B012 + B013,B012 + B013,-6.78,B012 + B013,1.091
+P02|B013,costo_abastecimiento_cop_pedido,1.15,P2,B012 + B013,B012 + B013,7.44,B012,1.334
+P02|B013,costo_abastecimiento_cop_pedido,1.15,P3,B012 + B013,B012 + B013,7.05,B012,1.334
+P02|B013,costo_abastecimiento_cop_pedido,1.15,P4,B012 + B013,B012 + B013,6.77,B012,1.334

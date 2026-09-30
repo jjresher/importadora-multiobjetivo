@@ -1,0 +1,5 @@
+bodega_id,municipio,dato_faltante,supuesto_optimista,entra_al_frente,en,ahorro_max_mcop,costo_fijo_equilibrio_mcop,costo_fijo_min_dataset_mcop
+B027,Cartagena,capacidad,"capacidad=68,000 (máx. del dataset)",False,,0.0,,145.0
+B068,Yumbo,capacidad,"capacidad=68,000 (máx. del dataset)",False,,0.0,,145.0
+B080,Armenia,costo fijo,costo fijo=0,True,T<=1.334,108.1,108.1,145.0
+B092,Sincelejo,capacidad,"capacidad=68,000 (máx. del dataset)",False,,0.0,,145.0

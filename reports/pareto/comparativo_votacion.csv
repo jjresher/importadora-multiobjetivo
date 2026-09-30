@@ -1,0 +1,4 @@
+plan,bodega,costo_mcop,tiempo_dias,eficiente,dominado_por,sobrecosto_vs_mejor_dominante_mcop,mejor_candidata_en_ciudad,costo_mejor_candidata_mcop,tiempo_mejor_candidata_dias
+Votación: solo Medellín,B002,1586.979944,1.3491878999999998,False,"P1, P2, P3, P4",11.768604478881835,B012,1575.211182,1.3338575
+Votación: solo Cali,B003,1727.561908,1.4884672000000003,False,"P1, P2, P3, P4, P5, P6, P7, P8, P9",152.35056847888183,B013,1658.90375,1.4771280999999998
+Votación: solo Barranquilla,B004,1733.115701,1.7945863000000002,False,"P1, P2, P3, P4, P5, P6, P7, P8, P9",157.90436147888184,B018,1700.283246,1.7827667999999994

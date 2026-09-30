@@ -1,6 +1,6 @@
 pandas==3.0.6
-numpy
+numpy==2.5.3
 pulp==4.0.0
-highspy
+highspy==1.15.1
 matplotlib==3.11.2
-tabulate
+tabulate==0.10.0

@@ -108,6 +108,44 @@ Fundamento de R4 y R5 (verificado sobre los datos válidos):
 - Zonas con al menos una ruta: 60 / 60
 - Capacidad máxima alcanzable (B001 + 2 mayores): 191,000
 
+Además, `validar_tablas_limpias()` comprueba con asserts, para los 12 meses: claves únicas, municipios en el catálogo, sin nulos ni negativos, devoluciones ≤ pedidos, pronóstico = control, oferta = demanda y fracciones por puerto, bodegas habilitadas completas, rutas válidas con costo y tiempo > 0, y confiabilidad en [0,1]. Si alguna falla, el script se detiene.
+
+## Validaciones cruzadas
+
+- Pronóstico 2026-10|Z003 imputado = 4567; `pedidos_octubre_referencia` de 01_zonas = 4567 → coincide.
+- Pronóstico limpio de 2026-10 igual a la referencia de 01_zonas en 60 / 60 zonas.
+
+Rutas imputadas: valor con R4 (mediana de vecinos) frente a una regresión lineal sobre la distancia ajustada con las rutas válidas no imputadas del mismo grupo:
+
+| archivo | clave | campo | R4 | regresión | diferencia |
+|---|---|---|---:|---:|---:|
+| 07 | P01|B017 | costo_abastecimiento_cop_pedido | 2,876.00 | 2,895.83 | -0.7% |
+| 07 | P01|B091 | costo_abastecimiento_cop_pedido | 2,876.00 | 2,854.00 | +0.8% |
+| 07 | P02|B013 | costo_abastecimiento_cop_pedido | 2,395.00 | 2,475.61 | -3.3% |
+| 07 | P02|B057 | costo_abastecimiento_cop_pedido | 5,060.00 | 4,700.46 | +7.6% |
+| 08 | B001|Z051 | costo_distribucion_cop_pedido | 9,176.00 | 8,287.61 | +10.7% |
+| 08 | B016|Z023 | costo_distribucion_cop_pedido | 26,911.00 | 28,258.69 | -4.8% |
+| 08 | B028|Z025 | costo_distribucion_cop_pedido | 6,082.00 | 6,075.69 | +0.1% |
+| 08 | B048|Z025 | costo_distribucion_cop_pedido | 11,466.00 | 12,031.49 | -4.7% |
+| 08 | B052|Z043 | costo_distribucion_cop_pedido | 10,061.00 | 11,178.97 | -10.0% |
+| 08 | B061|Z002 | costo_distribucion_cop_pedido | 10,059.00 | 10,615.49 | -5.2% |
+| 08 | B086|Z001 | costo_distribucion_cop_pedido | 5,862.00 | 5,743.22 | +2.1% |
+| 08 | B100|Z013 | costo_distribucion_cop_pedido | 12,797.00 | 12,967.88 | -1.3% |
+| 08 | B001|Z012 | tiempo_entrega_dias | 1.89 | 1.74 | +8.5% |
+| 08 | B004|Z042 | tiempo_entrega_dias | 2.72 | 2.60 | +4.5% |
+| 08 | B009|Z020 | tiempo_entrega_dias | 1.89 | 1.81 | +4.2% |
+| 08 | B017|Z040 | tiempo_entrega_dias | 0.83 | 0.85 | -2.4% |
+| 08 | B018|Z036 | tiempo_entrega_dias | 0.76 | 0.77 | -1.1% |
+| 08 | B039|Z054 | tiempo_entrega_dias | 3.46 | 3.51 | -1.4% |
+| 08 | B068|Z036 | tiempo_entrega_dias | 4.04 | 4.05 | -0.1% |
+| 08 | B097|Z021 | tiempo_entrega_dias | 4.05 | 3.89 | +4.0% |
+
+Desviación máxima de las rutas válidas no imputadas frente a su propia recta (si es pequeña, no quedan atípicos sin detectar):
+
+- 07_rutas_puerto_bodega.csv · costo_abastecimiento_cop_pedido: 17.9%
+- 08_rutas_bodega_zona.csv · costo_distribucion_cop_pedido: 27.9%
+- 08_rutas_bodega_zona.csv · tiempo_entrega_dias: 28.0%
+
 ## Observaciones que no se corrigen
 
 - `11_diccionario_datos.csv` declara la unidad de `porcentaje_pedidos_urgentes` como «pedidos/mes», pero los valores son fracciones en [0,1]. Se interpreta como fracción; no interviene en el modelo.

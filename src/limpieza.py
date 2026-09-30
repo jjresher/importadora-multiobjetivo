@@ -452,11 +452,105 @@ def validar_modelo(d, b, s, a_in, a_out, ctrl):
     assert cap_max >= D, "Capacidad insuficiente incluso con las dos mayores aperturas"
 
 
+def validar_tablas_limpias(zonas, hist, pron, bodegas, oferta, controles, rpb, rbz):
+    """Invariantes de todas las tablas limpias (todos los meses). Falla si algo se rompe."""
+    ctrl = controles.set_index("mes")
+    # Claves únicas
+    assert zonas["zona_id"].is_unique and len(zonas) == 60
+    assert not hist.duplicated(["mes", "zona_id"]).any()
+    assert not pron.duplicated(["mes", "zona_id"]).any()
+    assert bodegas["bodega_id"].is_unique
+    assert not oferta.duplicated(["mes", "puerto_id"]).any()
+    assert not rpb.duplicated(["puerto_id", "bodega_id"]).any()
+    assert not rbz.duplicated(["bodega_id", "zona_id"]).any()
+    # Catálogo: toda ciudad de zona está en el catálogo
+    assert set(zonas["ciudad_canonica"]) <= set(CATALOGO_MUNICIPIOS)
+    assert set(bodegas["municipio"]) <= set(CATALOGO_MUNICIPIOS)
+    # Histórico: sin nulos, sin negativos, devoluciones <= pedidos
+    assert hist["pedidos_realizados"].notna().all() and hist["pedidos_realizados"].ge(0).all()
+    assert (hist["devoluciones"].dropna() >= 0).all()
+    assert (hist["devoluciones"].fillna(0) <= hist["pedidos_realizados"]).all()
+    # Pronóstico: completo (12 meses x 60 zonas), no negativo, cada mes igual a su control
+    assert len(pron) == 12 * 60 and pron["pedidos_proyectados"].notna().all()
+    assert pron["pedidos_proyectados"].ge(0).all()
+    tot = pron.groupby("mes")["pedidos_proyectados"].sum()
+    dif = tot - ctrl.loc[tot.index, "demanda_total_control_pedidos"]
+    assert (dif == 0).all(), f"Pronóstico no concilia con control: {dif[dif != 0].to_dict()}"
+    # Oferta: completa, cada mes igual a la demanda y cercana a las fracciones del control
+    assert oferta["pedidos_disponibles"].notna().all() and oferta["pedidos_disponibles"].ge(0).all()
+    of = oferta.pivot(index="mes", columns="puerto_id", values="pedidos_disponibles")
+    assert (of.sum(axis=1) == tot.loc[of.index]).all(), "Oferta mensual != demanda"
+    for p, col in [("P01", "fraccion_puerto_cartagena"), ("P02", "fraccion_puerto_buenaventura")]:
+        esperado = ctrl.loc[of.index, col] * ctrl.loc[of.index, "demanda_total_control_pedidos"]
+        assert ((of[p] - esperado).abs() <= 1).all(), f"Oferta {p} no respeta la fracción"
+    # Bodegas habilitadas: atributos completos y positivos
+    hab = bodegas[bodegas["habilitada_modelo"] == 1]
+    for col in ["capacidad_pedidos_mes", "costo_operacion_variable_cop_pedido"]:
+        assert hab[col].notna().all() and hab[col].gt(0).all(), col
+    assert hab["costo_fijo_adicional_cop_mes"].notna().all() and hab["costo_fijo_adicional_cop_mes"].ge(0).all()
+    # Rutas válidas: costo y tiempo presentes y positivos; confiabilidad en [0,1]
+    for df, cols in [(rpb, ["costo_abastecimiento_cop_pedido", "tiempo_abastecimiento_dias"]),
+                     (rbz, ["costo_distribucion_cop_pedido", "tiempo_entrega_dias"])]:
+        v = df[df["arco_valido"]]
+        for col in cols:
+            assert v[col].notna().all() and v[col].gt(0).all(), col
+    assert rbz["confiabilidad_pct"].dropna().between(0, 1).all()
+
+
+def validaciones_cruzadas(zonas, pron, rpb, rbz, cambios):
+    """Contrasta imputaciones con fuentes o métodos independientes. Devuelve líneas de Markdown."""
+    lineas = []
+    # 1. Pronóstico de octubre imputado vs referencia de 01_zonas (fuente independiente)
+    imp = cambios[(cambios["archivo"] == "03_pronostico_demanda.csv")
+                  & cambios["clave"].str.startswith(MES_BASE)]
+    ref = zonas.set_index("zona_id")["pedidos_octubre_referencia"]
+    for r in imp.itertuples():
+        z = r.clave.split("|")[1]
+        estado = "coincide" if int(r.valor_nuevo) == ref[z] else "NO coincide"
+        lineas.append(f"- Pronóstico {r.clave} imputado = {r.valor_nuevo}; "
+                      f"`pedidos_octubre_referencia` de 01_zonas = {ref[z]} → {estado}.")
+    oct_ = pron[pron["mes"] == MES_BASE].merge(zonas[["zona_id", "pedidos_octubre_referencia"]])
+    n_ok = (oct_["pedidos_proyectados"] == oct_["pedidos_octubre_referencia"]).sum()
+    lineas.append(f"- Pronóstico limpio de {MES_BASE} igual a la referencia de 01_zonas en {n_ok} / 60 zonas.")
+
+    # 2. Rutas imputadas: mediana de vecinos (método usado) vs recta costo/tiempo ~ distancia
+    #    ajustada por grupo con los arcos no imputados (método alternativo).
+    lineas += ["", "Rutas imputadas: valor con R4 (mediana de vecinos) frente a una regresión lineal "
+               "sobre la distancia ajustada con las rutas válidas no imputadas del mismo grupo:", "",
+               "| archivo | clave | campo | R4 | regresión | diferencia |", "|---|---|---|---:|---:|---:|"]
+    fuentes = {"07_rutas_puerto_bodega.csv": (rpb, ["puerto_id", "bodega_id"], "puerto_id"),
+               "08_rutas_bodega_zona.csv": (rbz, ["bodega_id", "zona_id"], "bodega_id")}
+    residuos = []
+    for arch, (df, clave, grupo) in fuentes.items():
+        imp = cambios[(cambios["archivo"] == arch) & (cambios["accion"] == "imputado")]
+        df = df.assign(_k=df[clave[0]] + "|" + df[clave[1]])
+        for campo in imp["campo"].unique():
+            imp_k = set(imp.loc[imp["campo"] == campo, "clave"])
+            base = df[df["arco_valido"] & ~df["_k"].isin(imp_k)]
+            for g, sub in base.groupby(grupo):
+                coef = np.polyfit(sub["distancia_vial_estimada_km"], sub[campo], 1)
+                pred = np.polyval(coef, sub["distancia_vial_estimada_km"])
+                residuos.append((arch, campo, np.abs(sub[campo] / pred - 1).max()))
+            for k in sorted(imp_k):
+                fila = df[df["_k"] == k].iloc[0]
+                sub = base[base[grupo] == fila[grupo]]
+                coef = np.polyfit(sub["distancia_vial_estimada_km"], sub[campo], 1)
+                pred = np.polyval(coef, fila["distancia_vial_estimada_km"])
+                lineas.append(f"| {arch[:2]} | {k} | {campo} | {fila[campo]:,.2f} | {pred:,.2f} | "
+                              f"{fila[campo] / pred - 1:+.1%} |")
+    res = pd.DataFrame(residuos, columns=["archivo", "campo", "max_desv"])
+    res = res.groupby(["archivo", "campo"])["max_desv"].max()
+    lineas += ["", "Desviación máxima de las rutas válidas no imputadas frente a su propia recta "
+               "(si es pequeña, no quedan atípicos sin detectar):", ""]
+    lineas += [f"- {a} · {c}: {v:.1%}" for (a, c), v in res.items()]
+    return lineas
+
+
 # ---------------------------------------------------------------------------
 # Bitácora
 # ---------------------------------------------------------------------------
 
-def escribir_bitacora(cambios, crudos, resumen):
+def escribir_bitacora(cambios, crudos, resumen, cruzadas):
     por_archivo = cambios.groupby(["archivo", "accion"]).size().unstack(fill_value=0)
     lineas = [
         "# Bitácora de limpieza",
@@ -497,6 +591,11 @@ def escribir_bitacora(cambios, crudos, resumen):
         "",
     ]
     lineas += [f"- {k}: {v}" for k, v in resumen.items()]
+    lineas += ["", "Además, `validar_tablas_limpias()` comprueba con asserts, para los 12 meses: claves únicas, "
+               "municipios en el catálogo, sin nulos ni negativos, devoluciones ≤ pedidos, pronóstico = control, "
+               "oferta = demanda y fracciones por puerto, bodegas habilitadas completas, rutas válidas con costo "
+               "y tiempo > 0, y confiabilidad en [0,1]. Si alguna falla, el script se detiene."]
+    lineas += ["", "## Validaciones cruzadas", ""] + cruzadas
     lineas += [
         "",
         "## Observaciones que no se corrigen",
@@ -531,6 +630,7 @@ def main():
                                   ("rutas_pb", rpb, "bodega_id", B), ("rutas_pb", rpb, "puerto_id", P),
                                   ("oferta", oferta, "puerto_id", P)]:
         assert set(df[col]) == univ, f"{nombre}.{col} no coincide con el catálogo"
+    validar_tablas_limpias(zonas, hist, pron, bodegas, oferta, controles, rpb, rbz)
 
     # Tablas limpias completas (todos los meses)
     zonas.to_csv(CLEAN / "zonas.csv", index=False)
@@ -576,7 +676,8 @@ def main():
         "Capacidad máxima alcanzable (B001 + 2 mayores)":
             f"{b.set_index('bodega_id').at[BODEGA_EXISTENTE, 'capacidad'] + b[b['bodega_id'] != BODEGA_EXISTENTE]['capacidad'].nlargest(2).sum():,}",
     }
-    escribir_bitacora(cambios, crudos, resumen)
+    cruzadas = validaciones_cruzadas(zonas, pron, rpb, rbz, cambios)
+    escribir_bitacora(cambios, crudos, resumen, cruzadas)
 
     print(f"Cambios registrados: {len(cambios)}")
     print(cambios.groupby(["archivo", "accion"]).size().to_string())

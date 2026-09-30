@@ -1,0 +1,9 @@
+﻿archivo,campo_o_clave,problema_intencional,tarea_sugerida
+01_zonas_demanda.csv,ciudad_canonica,3 variantes ortográficas o de mayúsculas,Normalizar contra catálogo de ciudades antes de agrupar.
+02_demanda_historica.csv,mes + zona_id,4 claves duplicadas,Revisar y retirar duplicados exactos.
+02_demanda_historica.csv,"pedidos_realizados, devoluciones","nulos, negativo y valor atípico",Validar límites y contrastar con meses vecinos.
+03_pronostico_demanda.csv,pedidos_proyectados,"5 nulos, negativo y valor atípico",Imputar/conciliar contra controles mensuales y documentar cambios.
+04_bodegas_candidatas.csv,"capacidad_pedidos_mes, costo_fijo_adicional_cop_mes",4 nulos,Revisar fichas de sitios; excluir o imputar con criterio explícito.
+06_oferta_puertos_mensual.csv,pedidos_disponibles,1 nulo,Reconciliar con demanda mensual y cuota de cada puerto.
+07_rutas_puerto_bodega.csv,puerto_id + bodega_id,"1 clave duplicada, nulos y costo negativo",Desduplicar y estimar ruta con sitios comparables.
+08_rutas_bodega_zona.csv,bodega_id + zona_id,"1 clave duplicada, nulos y valores fuera de rango","Validar costo, días y confiabilidad."

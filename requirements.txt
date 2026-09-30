@@ -1,0 +1,6 @@
+pandas==3.0.6
+numpy
+pulp==4.0.0
+highspy
+matplotlib==3.11.2
+tabulate

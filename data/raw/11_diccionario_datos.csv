@@ -1,0 +1,59 @@
+﻿archivo,columna,tipo_esperado,unidad,descripcion_tabla
+01_zonas_demanda.csv,zona_id,texto,,60 zonas de clientes; el número de pedidos de referencia es octubre de 2026.
+01_zonas_demanda.csv,ciudad_canonica,texto,,60 zonas de clientes; el número de pedidos de referencia es octubre de 2026.
+01_zonas_demanda.csv,sector,texto,,60 zonas de clientes; el número de pedidos de referencia es octubre de 2026.
+01_zonas_demanda.csv,latitud,numero,,60 zonas de clientes; el número de pedidos de referencia es octubre de 2026.
+01_zonas_demanda.csv,longitud,numero,,60 zonas de clientes; el número de pedidos de referencia es octubre de 2026.
+01_zonas_demanda.csv,pedidos_octubre_referencia,numero,pedidos/mes,60 zonas de clientes; el número de pedidos de referencia es octubre de 2026.
+01_zonas_demanda.csv,porcentaje_pedidos_urgentes,numero,pedidos/mes,60 zonas de clientes; el número de pedidos de referencia es octubre de 2026.
+02_demanda_historica.csv,mes,texto,,"12 meses de ventas observadas sintéticas por zona, octubre de 2025 a septiembre de 2026."
+02_demanda_historica.csv,zona_id,texto,,"12 meses de ventas observadas sintéticas por zona, octubre de 2025 a septiembre de 2026."
+02_demanda_historica.csv,pedidos_realizados,numero,pedidos/mes,"12 meses de ventas observadas sintéticas por zona, octubre de 2025 a septiembre de 2026."
+02_demanda_historica.csv,devoluciones,numero,,"12 meses de ventas observadas sintéticas por zona, octubre de 2025 a septiembre de 2026."
+02_demanda_historica.csv,fuente,texto,,"12 meses de ventas observadas sintéticas por zona, octubre de 2025 a septiembre de 2026."
+03_pronostico_demanda.csv,mes,texto,,12 meses de pedidos proyectados por zona; optimizar octubre de 2026 primero.
+03_pronostico_demanda.csv,zona_id,texto,,12 meses de pedidos proyectados por zona; optimizar octubre de 2026 primero.
+03_pronostico_demanda.csv,pedidos_proyectados,numero,pedidos/mes,12 meses de pedidos proyectados por zona; optimizar octubre de 2026 primero.
+03_pronostico_demanda.csv,canal,texto,,12 meses de pedidos proyectados por zona; optimizar octubre de 2026 primero.
+03_pronostico_demanda.csv,escenario,texto,,12 meses de pedidos proyectados por zona; optimizar octubre de 2026 primero.
+03_pronostico_demanda.csv,version_pronostico,texto,,12 meses de pedidos proyectados por zona; optimizar octubre de 2026 primero.
+04_bodegas_candidatas.csv,bodega_id,texto,,"100 sitios, de los cuales B001 es la bodega existente obligatoria y 99 son candidatos."
+04_bodegas_candidatas.csv,municipio,texto,,"100 sitios, de los cuales B001 es la bodega existente obligatoria y 99 son candidatos."
+04_bodegas_candidatas.csv,sitio,texto,,"100 sitios, de los cuales B001 es la bodega existente obligatoria y 99 son candidatos."
+04_bodegas_candidatas.csv,latitud,numero,,"100 sitios, de los cuales B001 es la bodega existente obligatoria y 99 son candidatos."
+04_bodegas_candidatas.csv,longitud,numero,,"100 sitios, de los cuales B001 es la bodega existente obligatoria y 99 son candidatos."
+04_bodegas_candidatas.csv,tipo,texto,,"100 sitios, de los cuales B001 es la bodega existente obligatoria y 99 son candidatos."
+04_bodegas_candidatas.csv,capacidad_pedidos_mes,numero,pedidos/mes,"100 sitios, de los cuales B001 es la bodega existente obligatoria y 99 son candidatos."
+04_bodegas_candidatas.csv,costo_fijo_adicional_cop_mes,numero,COP/mes,"100 sitios, de los cuales B001 es la bodega existente obligatoria y 99 son candidatos."
+04_bodegas_candidatas.csv,costo_operacion_variable_cop_pedido,numero,COP/pedido,"100 sitios, de los cuales B001 es la bodega existente obligatoria y 99 son candidatos."
+04_bodegas_candidatas.csv,habilitada_octubre_2026,numero,,"100 sitios, de los cuales B001 es la bodega existente obligatoria y 99 son candidatos."
+05_puertos.csv,puerto_id,texto,,P01 Cartagena y P02 Buenaventura; fuentes fijas de producto importado.
+05_puertos.csv,puerto,texto,,P01 Cartagena y P02 Buenaventura; fuentes fijas de producto importado.
+05_puertos.csv,latitud,numero,,P01 Cartagena y P02 Buenaventura; fuentes fijas de producto importado.
+05_puertos.csv,longitud,numero,,P01 Cartagena y P02 Buenaventura; fuentes fijas de producto importado.
+06_oferta_puertos_mensual.csv,mes,texto,,Disponibilidad sintética de pedidos desde cada puerto por mes.
+06_oferta_puertos_mensual.csv,puerto_id,texto,,Disponibilidad sintética de pedidos desde cada puerto por mes.
+06_oferta_puertos_mensual.csv,pedidos_disponibles,numero,pedidos/mes,Disponibilidad sintética de pedidos desde cada puerto por mes.
+06_oferta_puertos_mensual.csv,origen,texto,,Disponibilidad sintética de pedidos desde cada puerto por mes.
+07_rutas_puerto_bodega.csv,puerto_id,texto,,"Costo por pedido y tiempos estimados de abastecimiento, 2 x 100."
+07_rutas_puerto_bodega.csv,bodega_id,texto,,"Costo por pedido y tiempos estimados de abastecimiento, 2 x 100."
+07_rutas_puerto_bodega.csv,distancia_vial_estimada_km,numero,km,"Costo por pedido y tiempos estimados de abastecimiento, 2 x 100."
+07_rutas_puerto_bodega.csv,costo_abastecimiento_cop_pedido,numero,COP/pedido,"Costo por pedido y tiempos estimados de abastecimiento, 2 x 100."
+07_rutas_puerto_bodega.csv,tiempo_abastecimiento_dias,numero,días,"Costo por pedido y tiempos estimados de abastecimiento, 2 x 100."
+08_rutas_bodega_zona.csv,bodega_id,texto,,"Costo, distancia, tiempo y confiabilidad estimados para 100 x 60 pares."
+08_rutas_bodega_zona.csv,zona_id,texto,,"Costo, distancia, tiempo y confiabilidad estimados para 100 x 60 pares."
+08_rutas_bodega_zona.csv,distancia_vial_estimada_km,numero,km,"Costo, distancia, tiempo y confiabilidad estimados para 100 x 60 pares."
+08_rutas_bodega_zona.csv,tiempo_entrega_dias,numero,días,"Costo, distancia, tiempo y confiabilidad estimados para 100 x 60 pares."
+08_rutas_bodega_zona.csv,costo_distribucion_cop_pedido,numero,COP/pedido,"Costo, distancia, tiempo y confiabilidad estimados para 100 x 60 pares."
+08_rutas_bodega_zona.csv,transportista,texto,,"Costo, distancia, tiempo y confiabilidad estimados para 100 x 60 pares."
+08_rutas_bodega_zona.csv,confiabilidad_pct,numero,,"Costo, distancia, tiempo y confiabilidad estimados para 100 x 60 pares."
+09_controles_mensuales.csv,mes,texto,,"Totales mensuales de control, límite de aperturas y capacidad actual."
+09_controles_mensuales.csv,demanda_total_control_pedidos,numero,pedidos/mes,"Totales mensuales de control, límite de aperturas y capacidad actual."
+09_controles_mensuales.csv,max_bodegas_nuevas,numero,,"Totales mensuales de control, límite de aperturas y capacidad actual."
+09_controles_mensuales.csv,capacidad_bogota_actual_pedidos_mes,numero,pedidos/mes,"Totales mensuales de control, límite de aperturas y capacidad actual."
+09_controles_mensuales.csv,fraccion_puerto_cartagena,numero,,"Totales mensuales de control, límite de aperturas y capacidad actual."
+09_controles_mensuales.csv,fraccion_puerto_buenaventura,numero,,"Totales mensuales de control, límite de aperturas y capacidad actual."
+10_eventos_comerciales.csv,mes,texto,,Contexto de los factores de demanda por mes.
+10_eventos_comerciales.csv,evento,texto,,Contexto de los factores de demanda por mes.
+10_eventos_comerciales.csv,factor_demanda_plan,numero,,Contexto de los factores de demanda por mes.
+10_eventos_comerciales.csv,nota,texto,,Contexto de los factores de demanda por mes.

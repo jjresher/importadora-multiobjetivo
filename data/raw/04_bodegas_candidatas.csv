@@ -1,0 +1,101 @@
+﻿bodega_id,municipio,sitio,latitud,longitud,tipo,capacidad_pedidos_mes,costo_fijo_adicional_cop_mes,costo_operacion_variable_cop_pedido,habilitada_octubre_2026
+B001,Bogotá,Actual,4.711,-74.072,existente,55000,0,950,1
+B002,Medellín,Centro 1,6.244,-75.581,candidata,60000,240000000,1100,1
+B003,Cali,Centro 1,3.452,-76.532,candidata,50000,220000000,1100,1
+B004,Barranquilla,Centro 1,10.968,-74.781,candidata,45000,180000000,1100,1
+B005,Bucaramanga,Centro 1,7.119,-73.123,candidata,35000,150000000,1100,1
+B006,Pereira,Centro 1,4.814,-75.694,candidata,40000,170000000,1100,1
+B007,Bogotá,Parque logístico 1,4.74396,-74.0627,candidata,35000,239000000,1425,1
+B008,Bogotá,Parque logístico 2,4.7423,-74.10527,candidata,30000,302000000,975,1
+B009,Bogotá,Parque logístico 3,4.69592,-74.03244,candidata,37000,194000000,950,1
+B010,Medellín,Parque logístico 1,6.26821,-75.56904,candidata,62000,282000000,850,1
+B011,Medellín,Parque logístico 2,6.25997,-75.54702,candidata,65000,157000000,1350,1
+B012,Medellín,Parque logístico 3,6.2792,-75.57055,candidata,60000,195000000,1250,1
+B013,Cali,Parque logístico 1,3.46588,-76.54083,candidata,54000,161000000,1125,1
+B014,Cali,Parque logístico 2,3.49349,-76.51658,candidata,53000,177000000,1225,1
+B015,Cali,Parque logístico 3,3.42981,-76.50122,candidata,33000,196000000,1575,1
+B016,Barranquilla,Parque logístico 1,10.98917,-74.75348,candidata,28000,270000000,850,1
+B017,Barranquilla,Parque logístico 2,10.98697,-74.78679,candidata,53000,243000000,1450,1
+B018,Barranquilla,Parque logístico 3,10.95967,-74.81331,candidata,53000,163000000,1300,1
+B019,BUCARAMANGA,Parque logístico 1,7.16351,-73.08563,candidata,59000,306000000,1450,1
+B020,Bucaramanga,Parque logístico 2,7.13174,-73.07842,candidata,50000,168000000,1525,1
+B021,Bucaramanga,Parque logístico 3,7.15413,-73.10638,candidata,27000,187000000,900,1
+B022,Pereira,Parque logístico 1,4.83069,-75.6751,candidata,68000,283000000,850,1
+B023,Pereira,Parque logístico 2,4.79581,-75.68257,candidata,58000,293000000,1075,1
+B024,Pereira,Parque logístico 3,4.82734,-75.6828,candidata,40000,231000000,1500,1
+B025,Cartagena,Parque logístico 1,10.39223,-75.44255,candidata,37000,217000000,1025,1
+B026,Cartagena,Parque logístico 2,10.36582,-75.47522,candidata,35000,298000000,1500,1
+B027,Cartagena,Parque logístico 3,10.40401,-75.43504,candidata,,189000000,875,1
+B028,Buenaventura,Parque logístico 1,3.86391,-77.0157,candidata,28000,257000000,850,1
+B029,Buenaventura,Parque logístico 2,3.87001,-77.06331,candidata,33000,258000000,1575,1
+B030,Buenaventura,Parque logístico 3,3.90757,-77.02706,candidata,48000,296000000,925,1
+B031,Santa Marta,Parque logístico 1,11.22442,-74.19718,candidata,53000,260000000,1225,1
+B032,Santa Marta,Parque logístico 2,11.25428,-74.15995,candidata,51000,180000000,925,1
+B033,Santa Marta,Parque logístico 3,11.20848,-74.22456,candidata,58000,188000000,925,1
+B034,Soledad,Parque logístico 1,10.90817,-74.78409,candidata,65000,275000000,1250,1
+B035,Soledad,Parque logístico 2,10.91305,-74.7616,candidata,56000,253000000,1400,1
+B036,Soledad,Parque logístico 3,10.88683,-74.78504,candidata,65000,242000000,975,1
+B037,Malambo,Parque logístico 1,10.86202,-74.77166,candidata,49000,284000000,1450,1
+B038,MALAMBO,Parque logístico 2,10.8882,-74.78597,candidata,58000,224000000,1575,1
+B039,Malambo,Parque logístico 3,10.90305,-74.80967,candidata,45000,218000000,1550,1
+B040,Girardot,Parque logístico 1,4.28371,-74.77219,candidata,55000,200000000,1375,1
+B041,Girardot,Parque logístico 2,4.25898,-74.77785,candidata,52000,286000000,950,1
+B042,Girardot,Parque logístico 3,4.26795,-74.85157,candidata,39000,187000000,1125,1
+B043,Soacha,Parque logístico 1,4.60757,-74.24453,candidata,57000,188000000,975,1
+B044,Soacha,Parque logístico 2,4.57825,-74.25754,candidata,63000,289000000,1450,1
+B045,Soacha,Parque logístico 3,4.53827,-74.17491,candidata,56000,275000000,1475,1
+B046,Mosquera,Parque logístico 1,4.70281,-74.25594,candidata,68000,264000000,1300,1
+B047,Mosquera,Parque logístico 2,4.67943,-74.19164,candidata,40000,278000000,1575,1
+B048,Mosquera,Parque logístico 3,4.66581,-74.20494,candidata,58000,294000000,1350,1
+B049,Funza,Parque logístico 1,4.72912,-74.2306,candidata,27000,264000000,1150,1
+B050,Funza,Parque logístico 2,4.67917,-74.17603,candidata,41000,226000000,900,1
+B051,Funza,Parque logístico 3,4.73427,-74.21863,candidata,57000,276000000,975,1
+B052,Cota,Parque logístico 1,4.81045,-74.10082,candidata,47000,177000000,1125,1
+B053,Cota,Parque logístico 2,4.83358,-74.09221,candidata,60000,145000000,1275,1
+B054,Cota,Parque logístico 3,4.83447,-74.08948,candidata,41000,242000000,1425,1
+B055,Itagüí,Parque logístico 1,6.14021,-75.62423,candidata,61000,188000000,1075,1
+B056,Itagüí,Parque logístico 2,6.21518,-75.61034,candidata,42000,147000000,1200,1
+B057,Itagüí,Parque logístico 3,6.19885,-75.57691,candidata,32000,167000000,1600,1
+B058,Rionegro,Parque logístico 1,6.16224,-75.37275,candidata,31000,277000000,1525,1
+B059,Rionegro,Parque logístico 2,6.16772,-75.38715,candidata,45000,175000000,1550,1
+B060,Rionegro,Parque logístico 3,6.13437,-75.38856,candidata,30000,243000000,1175,1
+B061,La Estrella,Parque logístico 1,6.13949,-75.66862,candidata,39000,167000000,1475,1
+B062,La Estrella,Parque logístico 2,6.12933,-75.67312,candidata,27000,181000000,1375,1
+B063,La Estrella,Parque logístico 3,6.13884,-75.62851,candidata,32000,249000000,975,1
+B064,Palmira,Parque logístico 1,3.51722,-76.30826,candidata,35000,275000000,1225,1
+B065,Palmira,Parque logístico 2,3.53776,-76.336,candidata,58000,174000000,1525,1
+B066,Palmira,Parque logístico 3,3.5507,-76.29289,candidata,49000,300000000,1225,1
+B067,Yumbo,Parque logístico 1,3.55011,-76.50329,candidata,60000,177000000,1425,1
+B068,Yumbo,Parque logístico 2,3.57015,-76.5317,candidata,,269000000,1250,1
+B069,Yumbo,Parque logístico 3,3.5453,-76.52388,candidata,27000,173000000,1600,1
+B070,Jamundí,Parque logístico 1,3.24403,-76.54692,candidata,31000,217000000,1025,1
+B071,Jamundí,Parque logístico 2,3.25456,-76.5114,candidata,34000,208000000,1175,1
+B072,Jamundí,Parque logístico 3,3.25777,-76.56896,candidata,41000,146000000,1375,1
+B073,Tuluá,Parque logístico 1,4.08502,-76.23418,candidata,56000,309000000,1400,1
+B074,Tuluá,Parque logístico 2,4.04407,-76.17227,candidata,62000,227000000,1250,1
+B075,Tuluá,Parque logístico 3,4.08851,-76.17996,candidata,39000,201000000,1600,1
+B076,Manizales,Parque logístico 1,5.08729,-75.50571,candidata,39000,239000000,1275,1
+B077,Manizales,Parque logístico 2,5.1004,-75.53253,candidata,61000,271000000,1225,1
+B078,Manizales,Parque logístico 3,5.11002,-75.54569,candidata,36000,302000000,1125,1
+B079,Armenia,Parque logístico 1,4.51638,-75.66588,candidata,41000,228000000,1025,1
+B080,Armenia,Parque logístico 2,4.55821,-75.67935,candidata,66000,,1325,1
+B081,Armenia,Parque logístico 3,4.57236,-75.64489,candidata,50000,172000000,1050,1
+B082,Ibagué,Parque logístico 1,4.42373,-75.20457,candidata,49000,255000000,1325,1
+B083,Ibagué,Parque logístico 2,4.41675,-75.27105,candidata,41000,161000000,1200,1
+B084,Ibagué,Parque logístico 3,4.47913,-75.18752,candidata,55000,153000000,1025,1
+B085,Villavicencio,Parque logístico 1,4.10915,-73.66613,candidata,63000,208000000,1550,1
+B086,Villavicencio,Parque logístico 2,4.13367,-73.59801,candidata,28000,211000000,850,1
+B087,Villavicencio,Parque logístico 3,4.1714,-73.58861,candidata,61000,179000000,1525,1
+B088,Cúcuta,Parque logístico 1,7.91986,-72.50475,candidata,34000,302000000,1000,1
+B089,Cúcuta,Parque logístico 2,7.85423,-72.51764,candidata,28000,165000000,1250,1
+B090,Cúcuta,Parque logístico 3,7.88954,-72.51762,candidata,42000,214000000,1025,1
+B091,Sincelejo,Parque logístico 1,9.34845,-75.37126,candidata,46000,201000000,1500,1
+B092,Sincelejo,Parque logístico 2,9.27583,-75.3762,candidata,,179000000,1500,1
+B093,Sincelejo,Parque logístico 3,9.3222,-75.398,candidata,54000,233000000,1050,1
+B094,Montería,Parque logístico 1,8.70437,-75.90111,candidata,29000,244000000,1450,1
+B095,Montería,Parque logístico 2,8.76572,-75.85299,candidata,26000,261000000,1550,1
+B096,Montería,Parque logístico 3,8.75098,-75.91323,candidata,40000,252000000,1525,1
+B097,Valledupar,Parque logístico 1,10.47569,-73.24378,candidata,39000,214000000,1300,1
+B098,Valledupar,Parque logístico 2,10.42655,-73.21816,candidata,30000,155000000,1275,1
+B099,Valledupar,Parque logístico 3,10.43302,-73.2235,candidata,55000,189000000,1300,1
+B100,Neiva,Parque logístico 1,2.90187,-75.27381,candidata,45000,255000000,1500,1
